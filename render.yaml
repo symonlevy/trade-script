@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: yt-whisper-transcriber
+    env: python
+    plan: free
+    buildCommand: pip install -r services/transcriber/requirements.txt
+    startCommand: gunicorn services.transcriber.app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: WHISPER_MODEL
+        value: base
